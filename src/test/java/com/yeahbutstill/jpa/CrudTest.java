@@ -25,7 +25,6 @@ class CrudTest {
         entityTransaction.begin();
 
         Customer customer = new Customer();
-        customer.setId("1");
         customer.setName("dani");
 
         // persist ini digunakan untuk memasukan data ke database

@@ -1,4 +1,9 @@
 # belajar-jpa
+
+JPA akan melakukan mapping data type secara otomatis dari table ke Class Entity
+secara default, tipe data dasar yang bisa digunakan di Java sudah didukung oleh JPA
+yang diperlukan hanya memastikan tipe data di Class Entity sama dengan tipe data di kolom table di Database.
+
 ## Run postgre with docker
 ```shell
 docker run --rm --name belajar-java-persistance-api-db \ 
@@ -14,4 +19,15 @@ postgres:15
 ## Test connect to database
 ```shell
 psql -h 127.0.0.1 -U dani belajar_java_persistance_api
+```
+
+## enable extension UUID v4 postgre
+```sql
+CREATE EXTENSION IF NOT EXISTS "uuid-ossp";
+CREATE TABLE categories(                  
+    id uuid DEFAULT uuid_generate_v4() PRIMARY KEY NOT NULL,
+    name VARCHAR(100) NOT NULL,
+    description VARCHAR(500)
+);
+
 ```

@@ -1,13 +1,12 @@
 package com.yeahbutstill.jpa.entity;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+
+import java.util.UUID;
 
 @Entity
 @AllArgsConstructor
@@ -19,12 +18,21 @@ public class Customer {
 
     @Id
     @Column(name = "id")
-    private String id;
+    @GeneratedValue(strategy = GenerationType.UUID)
+    private UUID id;
 
     @Column(name = "name")
     private String name;
 
     @Column(name = "primary_email")
     private String primaryEmail;
+
+    // smallint kalau di postgre
+    // pastikan juga menggunakan tipe data object di entitiy, harus menggunakan tipe data object,
+    // jangan yang non object "byte, int, boolean" karena di database itu tipe datanya object jadi bisa null.
+    // kalau kita menggunakan tipe data primitive(yang bukan object) itu tidak bisa null
+    private Byte age;
+
+    private Boolean married;
 
 }

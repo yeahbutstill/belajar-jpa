@@ -6,6 +6,11 @@ create table customers(
 SELECT * FROM customers;
 
 ALTER TABLE customers ADD COLUMN primary_email VARCHAR(150);
+alter table customers
+    alter column id type uuid using id::uuid;
+
+alter table customers
+    alter column id set default uuid_generate_v4();
 
 CREATE EXTENSION IF NOT EXISTS "uuid-ossp";
 
@@ -14,3 +19,8 @@ CREATE TABLE categories(
     name VARCHAR(100) NOT NULL,
     description varchar(500)
 );
+
+ALTER TABLE customers
+    ADD COLUMN age SMALLINT;
+ALTER TABLE customers
+    ADD COLUMN married BOOLEAN;
