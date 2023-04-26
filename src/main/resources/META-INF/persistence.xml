@@ -10,8 +10,13 @@
 <!--        karena disini menggunakan hibernate ORM-->
         <provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
 
+<!--        walaupun sebenernya tidak wajib, tapi JPA merekomendasikan selalu ditambahkan,-->
+<!--        biar proses pembacaan entitynya dilakukan diawal ketika aplikasi dijalankan si entity manager factory-->
+<!--        karena kalau tidak ditambahkan diawal nanti pembacaan entitynya itu dilakukan ketika memanggil entitynya,-->
+<!--        jadi itu akan menjadi prosesnya lebih lambat-->
         <!-- Entity Classes -->
         <class>com.yeahbutstill.jpa.entity.Customer</class>
+        <class>com.yeahbutstill.jpa.entity.Category</class>
 
         <properties>
             <property name="jakarta.persistence.jdbc.driver" value="org.postgresql.Driver"/>
