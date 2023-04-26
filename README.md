@@ -10,3 +10,8 @@ docker run --rm --name belajar-java-persistance-api-db \
 -p 5432:5432 \
 postgres:15
 ```
+
+## Test connect to database
+```shell
+psql -h 127.0.0.1 -U dani belajar_java_persistance_api
+```
