@@ -1,6 +1,7 @@
 package com.yeahbutstill.jpa;
 
 import com.yeahbutstill.jpa.entity.Customer;
+import com.yeahbutstill.jpa.enums.CustomerType;
 import com.yeahbutstill.jpa.utils.JpaUtil;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
@@ -18,8 +19,13 @@ class ColumnTest {
         entityTransaction.begin();
 
         Customer customer = new Customer();
-        customer.setName("Dani Setiawan");
-        customer.setPrimaryEmail("dani@gmail");
+        customer.setName("Naruto");
+        customer.setPrimaryEmail("naruto@gmail");
+        customer.setType(CustomerType.VIP);
+        customer.setAge((byte) 25);
+        customer.setMarried(true);
+        customer.setFullName("Uzumaki Naruto");
+
 
         entityManager.persist(customer);
         Assertions.assertNotNull(customer.getId());

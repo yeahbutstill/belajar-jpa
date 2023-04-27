@@ -25,6 +25,10 @@ public class Customer {
     @Column(name = "name")
     private String name;
 
+    // properties ini maka secara automatis akan di ignore ketika proses manipulasi data ke database
+    @Transient
+    private String fullName;
+
     @Enumerated(EnumType.STRING)
     @Column(name = "type")
     private CustomerType type;
