@@ -55,3 +55,10 @@ CREATE TABLE members (
     middle_name CHARACTER VARYING(100),
     last_name CHARACTER VARYING(100)
 );
+
+CREATE TABLE departments (
+    company_id CHARACTER VARYING(100) NOT NULL,
+    department_id CHARACTER VARYING(100) NOT NULL,
+    name CHARACTER VARYING(150) NOT NULL,
+    PRIMARY KEY(company_id, department_id)
+);
