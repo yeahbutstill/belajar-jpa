@@ -4,6 +4,9 @@ JPA akan melakukan mapping data type secara otomatis dari table ke Class Entity
 secara default, tipe data dasar yang bisa digunakan di Java sudah didukung oleh JPA
 yang diperlukan hanya memastikan tipe data di Class Entity sama dengan tipe data di kolom table di Database.
 
+Pada EnumType, sangat disarankan menggunakan type string. karena strategy integer(ORDINAL) bisa berubah ketika terjadi penambahan Enum Value pada posisi yang acak
+
+
 ## Run postgre with docker
 ```shell
 docker run --rm --name belajar-java-persistance-api-db \ 

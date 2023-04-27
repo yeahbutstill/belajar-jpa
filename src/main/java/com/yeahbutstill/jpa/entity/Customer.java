@@ -1,5 +1,6 @@
 package com.yeahbutstill.jpa.entity;
 
+import com.yeahbutstill.jpa.enums.CustomerType;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -23,6 +24,10 @@ public class Customer {
 
     @Column(name = "name")
     private String name;
+
+    @Enumerated(EnumType.STRING)
+    @Column(name = "type")
+    private CustomerType type;
 
     @Column(name = "primary_email")
     private String primaryEmail;

@@ -24,3 +24,6 @@ ALTER TABLE customers
     ADD COLUMN age SMALLINT;
 ALTER TABLE customers
     ADD COLUMN married BOOLEAN;
+
+ALTER TABLE customers
+    ADD COLUMN type VARCHAR(50);
