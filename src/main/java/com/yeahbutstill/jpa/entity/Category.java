@@ -6,6 +6,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.time.LocalDateTime;
+import java.util.Calendar;
 import java.util.UUID;
 
 @Entity
@@ -23,5 +25,13 @@ public class Category {
 
     private String name;
     private String description;
+
+    // terlalu lawas menggunakan java util Calendar atau java util Date
+    @Temporal(TemporalType.TIMESTAMP)
+    @Column(name = "created_at")
+    private Calendar createdAt;
+
+    @Column(name = "updated_at")
+    private LocalDateTime updatedAt;
 
 }
