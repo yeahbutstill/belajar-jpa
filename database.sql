@@ -46,3 +46,12 @@ CREATE TABLE company_files (
      file_name CHARACTER VARYING(255) NOT NULL,
      file_data BYTEA NOT NULL,
 );
+
+CREATE TABLE members (
+    id SERIAL PRIMARY KEY,
+    email CHARACTER VARYING(150) NOT NULL,
+    title CHARACTER VARYING(100),
+    first_name CHARACTER VARYING(100),
+    middle_name CHARACTER VARYING(100),
+    last_name CHARACTER VARYING(100)
+);
