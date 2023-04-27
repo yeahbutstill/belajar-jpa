@@ -17,6 +17,7 @@
         <!-- Entity Classes -->
         <class>com.yeahbutstill.jpa.entity.Customer</class>
         <class>com.yeahbutstill.jpa.entity.Category</class>
+        <class>com.yeahbutstill.jpa.entity.Image</class>
 
         <properties>
             <property name="jakarta.persistence.jdbc.driver" value="org.postgresql.Driver"/>

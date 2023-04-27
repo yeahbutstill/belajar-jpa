@@ -32,3 +32,17 @@ ALTER TABLE categories
     ADD COLUMN created_at TIMESTAMP;
 ALTER TABLE categories
     ADD COLUMN updated_at TIMESTAMP;
+
+CREATE TABLE images(
+    id uuid DEFAULT uuid_generate_v4() PRIMARY KEY NOT NULL,
+    name VARCHAR(100) NOT NULL,
+    description TEXT,
+    image BIGINT
+);
+
+CREATE TABLE company_files (
+     id        SERIAL PRIMARY KEY,
+     mime_type CHARACTER VARYING(255) NOT NULL,
+     file_name CHARACTER VARYING(255) NOT NULL,
+     file_data BYTEA NOT NULL,
+);
