@@ -48,7 +48,7 @@ CREATE TABLE company_files (
 );
 
 CREATE TABLE members (
-    id SERIAL PRIMARY KEY,
+    id INT GENERATED ALWAYS AS IDENTITY PRIMARY KEY NOT NULL,
     email CHARACTER VARYING(150) NOT NULL,
     title CHARACTER VARYING(100),
     first_name CHARACTER VARYING(100),
@@ -61,4 +61,13 @@ CREATE TABLE departments (
     department_id CHARACTER VARYING(100) NOT NULL,
     name CHARACTER VARYING(150) NOT NULL,
     PRIMARY KEY(company_id, department_id)
+);
+
+CREATE TABLE hobbies (
+    id INT GENERATED ALWAYS AS IDENTITY PRIMARY KEY NOT NULL,
+    member_id INT NOT NULL,
+    name CHARACTER VARYING(100) NOT NULL,
+    CONSTRAINT fk_members_hobbies
+        FOREIGN KEY (member_id)
+            REFERENCES members(id)
 );

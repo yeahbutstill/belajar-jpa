@@ -1,10 +1,10 @@
 # belajar-jpa
 
-JPA akan melakukan mapping data type secara otomatis dari table ke Class Entity
+- JPA akan melakukan mapping data type secara otomatis dari table ke Class Entity
 secara default, tipe data dasar yang bisa digunakan di Java sudah didukung oleh JPA
 yang diperlukan hanya memastikan tipe data di Class Entity sama dengan tipe data di kolom table di Database.
-
-Pada EnumType, sangat disarankan menggunakan type string. karena strategy integer(ORDINAL) bisa berubah ketika terjadi penambahan Enum Value pada posisi yang acak
+- Pada EnumType, sangat disarankan menggunakan type string. karena strategy integer(ORDINAL) bisa berubah ketika terjadi penambahan Enum Value pada posisi yang acak
+- Khusus untuk tipe datanya Element Collection ketika melakukan UPDATE hibernate akan DELETE dulu semua data yang ada di Table Collectionnya. lalu setelah itu di INSERT ulang, jadi perlu diperhatikan ketika bikin sebuah field Collection Element pastikan tidak ada di tablenya yang berelasi ke table lain.
 
 
 ## Run postgre with docker

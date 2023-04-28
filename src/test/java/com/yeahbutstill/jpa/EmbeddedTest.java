@@ -25,12 +25,15 @@ class EmbeddedTest {
 
         Name name = new Name();
         name.setTitle("Mr");
-        name.setFirstName("Bob");
-        name.setMiddleName("Test");
-        name.setLastName("Smith");
+        name.setFirstName("Dani");
+        name.setMiddleName("Long");
+        name.setLastName("Setiawan");
         member.setName(name);
 
         entityManager.persist(member);
+        Assertions.assertNotNull(member.getId());
+        Assertions.assertNotNull(member.getEmail());
+        Assertions.assertNotNull(member.getName());
 
         entityTransaction.commit();
         entityManager.close();
@@ -52,6 +55,8 @@ class EmbeddedTest {
         department.setName("Technologies");
 
         entityManager.persist(department);
+        Assertions.assertNotNull(department.getId());
+        Assertions.assertNotNull(department.getName());
 
         entityTransaction.commit();
         entityManager.close();
