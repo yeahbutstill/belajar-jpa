@@ -58,6 +58,7 @@ class CollectionTest {
 
         Member member = entityManager.find(Member.class, 2L);
         member.getHobbies().add("Gamming");
+        member.getHobbies().add("Nonton Gigs");
 
         entityManager.merge(member);
         Assertions.assertNotNull(member.getId());

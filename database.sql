@@ -71,3 +71,14 @@ CREATE TABLE hobbies (
         FOREIGN KEY (member_id)
             REFERENCES members(id)
 );
+
+CREATE TABLE skills (
+    id INT GENERATED ALWAYS AS IDENTITY PRIMARY KEY NOT NULL,
+    member_id INT NOT NULL,
+    name CHARACTER VARYING(100) NOT NULL,
+    value INT NOT NULL,
+    CONSTRAINT fk_members_skills
+        FOREIGN KEY (member_id)
+            REFERENCES members(id),
+    CONSTRAINT skills_unique UNIQUE(member_id, name)
+);
