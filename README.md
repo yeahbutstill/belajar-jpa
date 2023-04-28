@@ -6,6 +6,15 @@ yang diperlukan hanya memastikan tipe data di Class Entity sama dengan tipe data
 - Pada EnumType, sangat disarankan menggunakan type string. karena strategy integer(ORDINAL) bisa berubah ketika terjadi penambahan Enum Value pada posisi yang acak
 - Khusus untuk tipe datanya Element Collection ketika melakukan UPDATE hibernate akan DELETE dulu semua data yang ada di Table Collectionnya. lalu setelah itu di INSERT ulang, jadi perlu diperhatikan ketika bikin sebuah field Collection Element pastikan tidak ada di tablenya yang berelasi ke table lain.
 
+## Collection Update
+- Hati-hati menggunakan Collection Element
+- Setiap mengubah data di Collection Element, JPA akan menghapus dulu seluruh data di table Collection nya, setelah itu akan melakukan insert data baru
+- Oleh karena itu, ID pada table Collection Element akan selalu berubah
+- Jadi pastikan ID pada table Collection Element tidak digunakan sebagai FOREIGN KEY di table lain
+- Bagaimana jika ingin menggunakan table Collection Element sebagai FK di table lain? gunakan JPA Entity Relationship.
+
+
+
 
 ## Run postgre with docker
 ```shell
