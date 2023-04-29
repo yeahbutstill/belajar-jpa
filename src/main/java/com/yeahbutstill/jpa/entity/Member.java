@@ -36,9 +36,21 @@ public class Member {
     @Column(name = "value") // columnya di ambil dari value, yang akan diambil dari map value pada table skills
     private Map<String, Integer> skills;
 
+    @Transient
+    private String fullName;
+
     @Embedded
     private Name name;
 
     private String email;
+
+    @PostLoad
+    public void postLoad() {
+        // ini setelah setiap query ke database untuk data member
+        fullName = name.getTitle()
+                + ". " + name.getFirstName()
+                + " " + name.getMiddleName()
+                + " " + name.getLastName();
+    }
 
 }

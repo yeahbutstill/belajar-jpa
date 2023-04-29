@@ -1,11 +1,13 @@
 package com.yeahbutstill.jpa.entity;
 
+import com.yeahbutstill.jpa.listener.UpdatedAtListener;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.lang.annotation.Annotation;
 import java.time.LocalDateTime;
 import java.util.Calendar;
 import java.util.UUID;
@@ -15,8 +17,9 @@ import java.util.UUID;
 @AllArgsConstructor
 @Getter
 @Setter
+@EntityListeners({UpdatedAtListener.class})
 @Table(name = "categories")
-public class Category {
+public class Category implements UpdatedAtWare {
 
     @Id
     // jangan pake yang AUTO

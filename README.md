@@ -13,7 +13,21 @@ yang diperlukan hanya memastikan tipe data di Class Entity sama dengan tipe data
 - Jadi pastikan ID pada table Collection Element tidak digunakan sebagai FOREIGN KEY di table lain
 - Bagaimana jika ingin menggunakan table Collection Element sebagai FK di table lain? gunakan JPA Entity Relationship.
 
+## Entity Listener dan Event Annotation
+JPA memiliki fitur Entity Listener dimana bisa membuat sebuah Class Listener, yang nantinya akan dipanggil oleh JPA ketika sebuah operasi terjadi terhadap Entity nya.
 
+- @PrePersist Dieksekusi sebelum melakukan persist entity
+- @PostPersist Dieksekusi setelah melakukan persist entity
+- @PreRemove Dieksekusi sebelum melakukan remove entity
+- @PostRemove Dieksekusi setelah melakukan remove entity
+- @PreUpdate Dieksekusi sebelum melakukan update entity
+- @PostUpdate Dieksekusi setelah melakukan update entity
+- @PostLoad Dieksekusi setelah melakukan load entity
+
+## Listener di Entity Class
+- Selain menggunakan annotation @EntityListeners, bisa juga langsung menambahkan Event Annotation di Class Entity nya
+- Dengan begitu, tidak perlu membuat class listener lagi
+- Tapi ada kekurangan, tidak bisa membuat listener yang bisa digunakan oleh Entity lain
 
 
 ## Run postgre with docker
