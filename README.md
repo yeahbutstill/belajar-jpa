@@ -29,6 +29,15 @@ JPA memiliki fitur Entity Listener dimana bisa membuat sebuah Class Listener, ya
 - Dengan begitu, tidak perlu membuat class listener lagi
 - Tapi ada kekurangan, tidak bisa membuat listener yang bisa digunakan oleh Entity lain
 
+## One to One Relationship
+- One to One Relationship adalah relasi yang paling mudah, dimana satu table berelasi dengan satu data di table lain.
+- Ada beberapa cara melakukan relasi pada One to One, dengan FOREIGN KEY atau dengan PRIMARY KEY yang sama
+
+## @OneToOne - Annotation
+- Untuk menambah atribut di Entity yang berelasi dengan Entity lain, perlu di tambahkan annotation @OneToOne
+- Dan untuk memberi tahu JPA tentang kolom yang digunakan untuk melakukan JOIN FOREIGN KEY, perlu di tambahkan annotation @JoinColumn
+- Namun jika JOIN nya menggunakan PRIMARY KEY yang sama, bisa gunakan annotation @PrimaryKeyJoinColumn
+
 
 ## Run postgre with docker
 ```shell

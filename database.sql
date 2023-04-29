@@ -1,13 +1,11 @@
-create table customers(
+CREATE TABLE customers(
     id varchar(255) not null primary key,
     name VARCHAR(100) NOT NULL
 );
 
-SELECT * FROM customers;
-
 ALTER TABLE customers ADD COLUMN primary_email VARCHAR(150);
-alter table customers
-    alter column id type uuid using id::uuid;
+ALTER TABLE customers
+    ALTER COLUMN id type uuid using id::uuid;
 
 alter table customers
     alter column id set default uuid_generate_v4();
@@ -81,4 +79,22 @@ CREATE TABLE skills (
         FOREIGN KEY (member_id)
             REFERENCES members(id),
     CONSTRAINT skills_unique UNIQUE(member_id, name)
+);
+
+CREATE TABLE credentials(
+    id CHARACTER VARYING(100) NOT NULL PRIMARY KEY,
+    email CHARACTER VARYING(150) NOT NULL,
+    password CHARACTER VARYING(150) NOT NULL
+);
+
+CREATE TABLE users(
+    id CHARACTER VARYING(100) NOT NULL PRIMARY KEY,
+    name CHARACTER VARYING(150) NOT NULL
+);
+
+CREATE TABLE wallet (
+    id INT NOT NULL GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
+    user_id CHARACTER VARYING(100) NOT NULL,
+    balance BIGINT NOT NULL,
+    CONSTRAINT fk_users_wallet FOREIGN KEY (user_id) REFERENCES users(id)
 );

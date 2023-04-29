@@ -7,7 +7,6 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.lang.annotation.Annotation;
 import java.time.LocalDateTime;
 import java.util.Calendar;
 import java.util.UUID;
