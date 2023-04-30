@@ -50,6 +50,25 @@ JPA memiliki fitur Entity Listener dimana bisa membuat sebuah Class Listener, ya
 - Yang membedakan dengan relasi lain, karena Many to Many butuh table tambahan ditengah sebagai jembatan, oleh karena itu untuk melakukan join, menggunakan annotation @JoinTable
 - Untuk table yang ditengah sebagai jembatan, tidak butuh membuat Class Entity nya
 
+## Fetch
+- Saat membuat Entity Class yang kompleks dan banyak sekali relasinya, perlu diperhatikan dan berhati-hati
+- Hal ini karena secara default, beberapa jenis relasi memiliki value fetch EAGER, artinya saat melakukan FIND Entity, relasinya akan secara otomatis di JOIN, walaupun tidak membutuhkan relasinya
+- Kebalikan dari EAGER adalah LAZY, dimana artinya relasi akan di QUERY ketika dipanggil attribute nya, jika tidak maka itu tidak akan di QUERY
+
+## Default Value Fetch
+- @OneToOne itu default fetch EAGER
+- @OneToMany itu default fetch LAZY
+- @ManyToOne itu default fetch EAGER
+- @ManyToMany itu default fetch LAZY
+
+PERLU BERHATI-HATI DENGAN FETCH EAGER
+
+## Mengubah Fetch
+- Jika ingin mengubah nilai default Fetch, kita bisa ubah di attribut di annotation relasinya
+- Semua relasi dari One to One, One to Many, Many to One dan Many to Many memiliki attribute fetch yang bisa kita ubah
+
+
+
 ## Run postgre with docker
 ```shell
 docker run --rm --name belajar-java-persistance-api-db \ 

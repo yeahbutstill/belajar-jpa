@@ -169,11 +169,29 @@ class EntityRelationshipTest {
         }
 
         user.getLikes().remove(product);
+        Assertions.assertNotNull(product);
         entityManager.merge(user);
 
         transaction.commit();
         entityManager.close();
 
+    }
+
+    @Test
+    void testFetch() {
+        EntityManagerFactory entityManagerFactory = JpaUtil.getEMF();
+        EntityManager entityManager = entityManagerFactory.createEntityManager();
+        EntityTransaction transaction = entityManager.getTransaction();
+        transaction.begin();
+
+        Product product = entityManager.find(Product.class, "p1");
+        Brand brand = product.getBrand();
+        Assertions.assertNotNull(product.getId());
+        Assertions.assertNotNull(brand.getId());
+        Assertions.assertNotNull(brand.getName());
+
+        transaction.commit();
+        entityManager.close();
     }
 
 }
