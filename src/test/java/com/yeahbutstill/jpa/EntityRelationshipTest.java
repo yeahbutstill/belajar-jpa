@@ -8,6 +8,8 @@ import jakarta.persistence.EntityTransaction;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
+import java.util.HashSet;
+
 class EntityRelationshipTest {
 
     @Test
@@ -126,6 +128,52 @@ class EntityRelationshipTest {
 
         transaction.commit();
         entityManager.close();
+    }
+
+    @Test
+    void testManyToManyInsert() {
+        EntityManagerFactory entityManagerFactory = JpaUtil.getEMF();
+        EntityManager entityManager = entityManagerFactory.createEntityManager();
+        EntityTransaction transaction = entityManager.getTransaction();
+        transaction.begin();
+
+        User user = entityManager.find(User.class, "yeahbutstill");
+        user.setLikes(new HashSet<>());
+
+        Product product1 = entityManager.find(Product.class, "p1");
+        Product product2 = entityManager.find(Product.class, "p2");
+
+        user.getLikes().add(product1);
+        user.getLikes().add(product2);
+
+        entityManager.merge(user);
+        Assertions.assertNotNull(user.getId());
+        Assertions.assertNotNull(user.getLikes());
+
+        transaction.commit();
+        entityManager.close();
+    }
+
+    @Test
+    void testManyToManyRemove() {
+        EntityManagerFactory entityManagerFactory = JpaUtil.getEMF();
+        EntityManager entityManager = entityManagerFactory.createEntityManager();
+        EntityTransaction transaction = entityManager.getTransaction();
+        transaction.begin();
+
+        User user = entityManager.find(User.class, "yeahbutstill");
+        Product product = null;
+        for (Product item : user.getLikes()) {
+            product = item;
+            break;
+        }
+
+        user.getLikes().remove(product);
+        entityManager.merge(user);
+
+        transaction.commit();
+        entityManager.close();
+
     }
 
 }

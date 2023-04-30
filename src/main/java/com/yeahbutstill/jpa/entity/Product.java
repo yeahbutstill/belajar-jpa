@@ -6,6 +6,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.Set;
+
 @NoArgsConstructor
 @AllArgsConstructor
 @Getter
@@ -27,5 +29,8 @@ public class Product {
     private String name;
     private Long price;
     private String description;
+
+    @ManyToMany(mappedBy = "likes")
+    private Set<User> likedBy;
 
 }

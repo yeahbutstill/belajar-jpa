@@ -113,3 +113,11 @@ CREATE TABLE products (
     description CHARACTER VARYING(500),
     CONSTRAINT fk_brands_products FOREIGN KEY (brand_id) REFERENCES brands (id)
 );
+
+CREATE TABLE users_like_products (
+    user_id CHARACTER VARYING(100) NOT NULL,
+    product_id CHARACTER VARYING(100) NOT NULL,
+    CONSTRAINT fk_users_users_like_products FOREIGN KEY (user_id) REFERENCES users (id),
+    CONSTRAINT fk_products_users_like_products FOREIGN KEY (product_id) REFERENCES products (id),
+    PRIMARY KEY (user_id, product_id)
+);

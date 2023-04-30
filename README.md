@@ -44,6 +44,11 @@ JPA memiliki fitur Entity Listener dimana bisa membuat sebuah Class Listener, ya
 - Relasi OneToMany jika dilihat dari arah sebaliknya adalah relasi ManyToOne, oleh karena itu nanti di Class Entity sebelahnya, relasinya adalah ManyToOne
 - Cara penggunaannya hampir mirip dengan relasi OneToOne, bisa digunakan JoinColumn pada Entity yang memiliki kolom Foreign Key nya yang menggunakan ManyToOne, dan cukup gunakan attribute mappedBy pada attribute yang menggunakan OneToMany
 
+## Many To Many Relationship
+- Pada relasi Many to Many, tidak bisa hanya menggunakan dua table, biasanya akan ditambahkan table ditengah sebagai jembatan relasi antara table pertama dan kedua
+- Untuk menggunakan relasi Many to Many, bisa dengan menggunakan annotation @ManyToMany
+- Yang membedakan dengan relasi lain, karena Many to Many butuh table tambahan ditengah sebagai jembatan, oleh karena itu untuk melakukan join, menggunakan annotation @JoinTable
+- Untuk table yang ditengah sebagai jembatan, tidak butuh membuat Class Entity nya
 
 ## Run postgre with docker
 ```shell
