@@ -1,8 +1,6 @@
 package com.yeahbutstill.jpa;
 
-import com.yeahbutstill.jpa.entity.Credential;
-import com.yeahbutstill.jpa.entity.User;
-import com.yeahbutstill.jpa.entity.Wallet;
+import com.yeahbutstill.jpa.entity.*;
 import com.yeahbutstill.jpa.utils.JpaUtil;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
@@ -73,6 +71,61 @@ class EntityRelationshipTest {
         transaction.commit();
         entityManager.close();
 
+    }
+
+    @Test
+    void testOneToManyInsert() {
+        EntityManagerFactory entityManagerFactory = JpaUtil.getEMF();
+        EntityManager entityManager = entityManagerFactory.createEntityManager();
+        EntityTransaction transaction = entityManager.getTransaction();
+        transaction.begin();
+
+        Brand brand = new Brand();
+        brand.setId("samsung");
+        brand.setName("Samsung");
+        brand.setDescription("Samsung brand");
+        entityManager.persist(brand);
+        Assertions.assertNotNull(brand.getId());
+
+        Product product1 = new Product();
+        product1.setId("p1");
+        product1.setName("Samsung Galaxy S10");
+        product1.setBrand(brand);
+        product1.setPrice(1_000_000L);
+        product1.setDescription("Samsung Galaxy S10");
+        entityManager.persist(product1);
+        Assertions.assertNotNull(product1.getId());
+
+        Product product2 = new Product();
+        product2.setId("p2");
+        product2.setName("Samsung Galaxy S15");
+        product2.setBrand(brand);
+        product2.setPrice(2_000_000L);
+        product2.setDescription("Samsung Galaxy S15");
+        entityManager.persist(product2);
+        Assertions.assertNotNull(product2.getId());
+
+        transaction.commit();
+        entityManager.close();
+    }
+
+    @Test
+    void testOneToManyFind() {
+        EntityManagerFactory entityManagerFactory = JpaUtil.getEMF();
+        EntityManager entityManager = entityManagerFactory.createEntityManager();
+        EntityTransaction transaction = entityManager.getTransaction();
+        transaction.begin();
+
+        Brand brand = entityManager.find(Brand.class, "samsung");
+        Assertions.assertNotNull(brand.getProducts());
+        Assertions.assertEquals(2, brand.getProducts().size());
+
+        brand.getProducts().forEach(product -> {
+            System.out.println(product.getName());
+        });
+
+        transaction.commit();
+        entityManager.close();
     }
 
 }

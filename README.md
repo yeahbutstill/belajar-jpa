@@ -38,6 +38,12 @@ JPA memiliki fitur Entity Listener dimana bisa membuat sebuah Class Listener, ya
 - Dan untuk memberi tahu JPA tentang kolom yang digunakan untuk melakukan JOIN FOREIGN KEY, perlu di tambahkan annotation @JoinColumn
 - Namun jika JOIN nya menggunakan PRIMARY KEY yang sama, bisa gunakan annotation @PrimaryKeyJoinColumn
 
+## One to Many Relationship
+- Untuk membuat Entity yang memiliki relasi One to Many dengan entity lain, bisa menggunakan @OneToMany
+- Dan atribut di Entity, tipe datanya harus dibungkus dalam collection, seperti misalnya List<T> atau Set<T>
+- Relasi OneToMany jika dilihat dari arah sebaliknya adalah relasi ManyToOne, oleh karena itu nanti di Class Entity sebelahnya, relasinya adalah ManyToOne
+- Cara penggunaannya hampir mirip dengan relasi OneToOne, bisa digunakan JoinColumn pada Entity yang memiliki kolom Foreign Key nya yang menggunakan ManyToOne, dan cukup gunakan attribute mappedBy pada attribute yang menggunakan OneToMany
+
 
 ## Run postgre with docker
 ```shell

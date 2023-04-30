@@ -98,3 +98,18 @@ CREATE TABLE wallet (
     balance BIGINT NOT NULL,
     CONSTRAINT fk_users_wallet FOREIGN KEY (user_id) REFERENCES users(id)
 );
+
+CREATE TABLE brands (
+    id CHARACTER VARYING(100) NOT NULL PRIMARY KEY,
+    name CHARACTER VARYING(100) NOT NULL,
+    description CHARACTER VARYING(500)
+);
+
+CREATE TABLE products (
+    id CHARACTER VARYING(100) NOT NULL PRIMARY KEY,
+    brand_id CHARACTER VARYING(100) NOT NULL,
+    name CHARACTER VARYING(100) NOT NULL,
+    price BIGINT NOT NULL,
+    description CHARACTER VARYING(500),
+    CONSTRAINT fk_brands_products FOREIGN KEY (brand_id) REFERENCES brands (id)
+);
