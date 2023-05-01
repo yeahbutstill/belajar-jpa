@@ -121,3 +121,11 @@ CREATE TABLE users_like_products (
     CONSTRAINT fk_products_users_like_products FOREIGN KEY (product_id) REFERENCES products (id),
     PRIMARY KEY (user_id, product_id)
 );
+
+CREATE TABLE employees (
+    id CHARACTER VARYING(100) NOT NULL PRIMARY KEY,
+    type CHARACTER VARYING(50) NOT NULL,
+    name CHARACTER VARYING(100) NOT NULL,
+    total_manager INT,
+    total_employee INT
+);

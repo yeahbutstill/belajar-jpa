@@ -67,6 +67,41 @@ PERLU BERHATI-HATI DENGAN FETCH EAGER
 - Jika ingin mengubah nilai default Fetch, kita bisa ubah di attribut di annotation relasinya
 - Semua relasi dari One to One, One to Many, Many to One dan Many to Many memiliki attribute fetch yang bisa kita ubah
 
+## IS-A Relationship
+- Di dalam Entity Relationship Diagram (ERD), terdapat jenis relasi bernama IS-A
+- IS-A ini biasanya digunakan untuk mendukung konsep pewarisan di relational database, yang notabenenya tidak mendukung pewarisan
+- Jenis relasi IS-A sering sekali ditemukan di kehidupan nyata
+- Contoh: table Empolyee, dimana memiliki detail Manager, VicePresident, Supervisor dan lain-lain
+- Contoh: table Payment, dimana memiliki detail PaymentBCA, PaymentMandiri, PaymentCreditCard dan lain-lain
+- IS-A Relationship jika dalam OOP, maka implementasinya adalah berupa Inheritance / Pewarisan
+
+## Implementasi IS-A Relationship
+- IS-A sendiri memiliki beberapa cara implementasi di table nya
+- Single Table Inheritance
+- Joined Table Inheritance
+- Table PerClass Inheritance
+
+## Single Table Inheritance
+- Single Table Inheritance adalah menyimpan seluruh Entity untuk relasi IS-A dalam satu table
+- Artinya semua kolom di semua Entity akan digabungkan dalam satu table
+- Plus nya dari strategi ini adalah mudah dan cepat, tidak butuh melakukan join
+- Minus nya, harus membuat semua kolom jadi nullable, karena tiap record hanya milik satu Entity
+
+## Parent Entity
+- Saat membuat Entity untuk IS-A Relationship perlu membuat parent Entity nya terlebih dahulu
+- Parent entity berisikan attribute yang tersedia di semua Child Entity nya
+- Dan khusus untuk Parent Entity, harus menyebutkan strategy Inheritance yang menggunakan annotation Inheritance
+- Pada kasus Single Table Inheritance, wajib menggunakan Inheritance Type SINGLE_TABLE
+
+## Child Entity
+- Untuk Child Entity, cukup extends class Parent Entity
+- Pada kasus Single Table Inheritance, perlu memberi tahu JPA dari kolom dan value apa Child Entity tersebut dipilih
+- Oleh karena itu perlu menambahkan annotation DiscriminatorColumn pada Parent
+- Dan pada Child Entity, harus menambahkan annotation DiscriminatorValue
+
+## Find Entity IS-A
+- Pada kasus relasi IS-A, bisa find data langsung spesifik ke Child Entity, atau lewat Parent Entity
+- Selain itu pada kasus jika melakukan Find menggunakan Parent Entity dan ternyata data tersebut adalah Child Entity, bisa konversi secara manual
 
 
 ## Run postgre with docker

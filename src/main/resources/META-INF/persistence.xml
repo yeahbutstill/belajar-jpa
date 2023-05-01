@@ -25,6 +25,10 @@
         <class>com.yeahbutstill.jpa.entity.Wallet</class>
         <class>com.yeahbutstill.jpa.entity.Product</class>
         <class>com.yeahbutstill.jpa.entity.Brand</class>
+        <class>com.yeahbutstill.jpa.entity.Department</class>
+        <class>com.yeahbutstill.jpa.entity.Employee</class>
+        <class>com.yeahbutstill.jpa.entity.Manager</class>
+        <class>com.yeahbutstill.jpa.entity.VicePresident</class>
 
         <properties>
             <property name="jakarta.persistence.jdbc.driver" value="org.postgresql.Driver"/>
