@@ -29,6 +29,9 @@
         <class>com.yeahbutstill.jpa.entity.Employee</class>
         <class>com.yeahbutstill.jpa.entity.Manager</class>
         <class>com.yeahbutstill.jpa.entity.VicePresident</class>
+        <class>com.yeahbutstill.jpa.entity.Payment</class>
+        <class>com.yeahbutstill.jpa.entity.PaymentGopay</class>
+        <class>com.yeahbutstill.jpa.entity.PaymentCreditCard</class>
 
         <properties>
             <property name="jakarta.persistence.jdbc.driver" value="org.postgresql.Driver"/>

@@ -129,3 +129,21 @@ CREATE TABLE employees (
     total_manager INT,
     total_employee INT
 );
+
+CREATE TABLE payments (
+    id CHARACTER VARYING(100) NOT NULL PRIMARY KEY,
+    amount BIGINT NOT NULL
+);
+
+CREATE TABLE payments_gopay (
+    id CHARACTER VARYING(100) NOT NULL PRIMARY KEY,
+    gopay_id CHARACTER VARYING(100) NOT NULL,
+    CONSTRAINT fk_payments_gopay FOREIGN KEY (id) REFERENCES payments (id)
+);
+
+CREATE TABLE payments_credit_card (
+    id CHARACTER VARYING(100) NOT NULL PRIMARY KEY,
+    masked_card CHARACTER VARYING(100) NOT NULL,
+    bank CHARACTER VARYING(100) NOT NULL,
+    CONSTRAINT fk_payments_credit_card FOREIGN KEY (id) REFERENCES payments (id)
+);

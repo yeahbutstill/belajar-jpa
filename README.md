@@ -103,6 +103,11 @@ PERLU BERHATI-HATI DENGAN FETCH EAGER
 - Pada kasus relasi IS-A, bisa find data langsung spesifik ke Child Entity, atau lewat Parent Entity
 - Selain itu pada kasus jika melakukan Find menggunakan Parent Entity dan ternyata data tersebut adalah Child Entity, bisa konversi secara manual
 
+## Joined Table Inheritance
+- Implementasi IS-A adalah menggunakan Join Table
+- Yang artinya, tiap Child Entity memiliki table masing-masing, namun akan melakukan Join Primary Key dengan Table Parent Entity
+- Pada Joined Table Inheritance, tidak perlu menggunakan Discriminator Column lagi, karena data nya sudah terpisah table
+
 
 ## Run postgre with docker
 ```shell
