@@ -147,3 +147,23 @@ CREATE TABLE payments_credit_card (
     bank CHARACTER VARYING(100) NOT NULL,
     CONSTRAINT fk_payments_credit_card FOREIGN KEY (id) REFERENCES payments (id)
 );
+
+CREATE TABLE transactions (
+    id CHARACTER VARYING(100) NOT NULL PRIMARY KEY,
+    balance BIGINT NOT NULL,
+    created_at TIMESTAMP NOT NULL
+);
+
+CREATE TABLE transactions_debit (
+    id CHARACTER VARYING(100) NOT NULL PRIMARY KEY,
+    balance BIGINT NOT NULL,
+    created_at TIMESTAMP NOT NULL,
+    debit_amount BIGINT NOT NULL
+);
+
+CREATE TABLE transactions_credit (
+    id CHARACTER VARYING(100) NOT NULL PRIMARY KEY,
+    balance BIGINT NOT NULL,
+    created_at TIMESTAMP NOT NULL,
+    credit_amount BIGINT NOT NULL
+);

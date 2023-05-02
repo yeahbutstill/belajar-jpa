@@ -8,7 +8,7 @@ import jakarta.persistence.EntityTransaction;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
-import java.math.BigDecimal;
+import java.time.LocalDateTime;
 
 class InheritanceTest {
 
@@ -129,6 +129,82 @@ class InheritanceTest {
 
         transaction.commit();
         entityManager.close();
+    }
+
+    @Test
+    void testTablePerClassInsert() {
+
+        EntityManagerFactory entityManagerFactory = JpaUtil.getEMF();
+        EntityManager entityManager = entityManagerFactory.createEntityManager();
+        EntityTransaction entityTransaction = entityManager.getTransaction();
+        entityTransaction.begin();
+
+        Transaction transaction = new Transaction();
+        transaction.setId("transaction1");
+        transaction.setCreatedAt(LocalDateTime.now());
+        transaction.setBalance(1_000_000L);
+        Assertions.assertNotNull(transaction);
+        entityManager.persist(transaction);
+
+        TransactionDebit debitTransaction = new TransactionDebit();
+        debitTransaction.setId("transaction2");
+        debitTransaction.setCreatedAt(LocalDateTime.now());
+        debitTransaction.setBalance(2_000_000L);
+        debitTransaction.setDeditAmount(1_000_000L);
+        Assertions.assertNotNull(debitTransaction);
+        entityManager.persist(debitTransaction);
+
+        TransactionCredit creditTransaction = new TransactionCredit();
+        creditTransaction.setId("transaction3");
+        creditTransaction.setCreatedAt(LocalDateTime.now());
+        creditTransaction.setBalance(3_000_000L);
+        creditTransaction.setCreditAmount(1_000_000L);
+        Assertions.assertNotNull(creditTransaction);
+        entityManager.persist(creditTransaction);
+
+        entityTransaction.commit();
+        entityManager.close();
+
+    }
+
+    @Test
+    void testTablePerClassFindToChild() {
+
+        EntityManagerFactory entityManagerFactory = JpaUtil.getEMF();
+        EntityManager entityManager = entityManagerFactory.createEntityManager();
+        EntityTransaction entityTransaction = entityManager.getTransaction();
+        entityTransaction.begin();
+
+        TransactionDebit debitTransaction = entityManager.find(TransactionDebit.class, "transaction2");
+        Assertions.assertNotNull(debitTransaction);
+        TransactionCredit creditTransaction = entityManager.find(TransactionCredit.class, "transaction3");
+        Assertions.assertNotNull(creditTransaction);
+
+        entityTransaction.commit();
+        entityManager.close();
+
+    }
+
+    /***
+     * Hati-hati kalau pake Table PerClass, misalkan query nya ke table parent nya.
+     * jangan menggunakan strategy ini
+     * jadi kalau mau query ke table parent, kalau memang tidak terlau banyak gunakan JOIN TABLE STRATEGY
+     * kalau table child nya banyak bisa gunakan SINGLE TABLE
+     */
+    @Test
+    void testTablePerClassFindToParent() {
+
+        EntityManagerFactory entityManagerFactory = JpaUtil.getEMF();
+        EntityManager entityManager = entityManagerFactory.createEntityManager();
+        EntityTransaction entityTransaction = entityManager.getTransaction();
+        entityTransaction.begin();
+
+        Transaction transaction = entityManager.find(Transaction.class, "transaction1");
+        Assertions.assertNotNull(transaction);
+
+        entityTransaction.commit();
+        entityManager.close();
+
     }
 
 }

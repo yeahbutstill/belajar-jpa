@@ -108,6 +108,12 @@ PERLU BERHATI-HATI DENGAN FETCH EAGER
 - Yang artinya, tiap Child Entity memiliki table masing-masing, namun akan melakukan Join Primary Key dengan Table Parent Entity
 - Pada Joined Table Inheritance, tidak perlu menggunakan Discriminator Column lagi, karena data nya sudah terpisah table
 
+## Table Per Class Inheritance
+- Strategi terakhir unutk implementasi IS-A adalah dengan Tabel per Class
+- Yang artinya tiap Entity akan dibuatkan table masing-masing, artinya Parent Entity dab Child Entity akan memiliki table masing-masing
+- Strategi ini mirip seperti dengan JOIN, namun tiap table menyimpan full kolom
+- Harap bijak ketika menggunakan strategi ini, walaupun akan jadi lebih cepat kalau ketika langsung melakukan find Child Entity (karena tidak butuh join), tapi saat melakukan find menggunakan Parent Entity, maka akan sangat lambat karena harus melakukan SELECT FROM SELECT
+
 
 ## Run postgre with docker
 ```shell

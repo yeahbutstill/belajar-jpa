@@ -32,6 +32,9 @@
         <class>com.yeahbutstill.jpa.entity.Payment</class>
         <class>com.yeahbutstill.jpa.entity.PaymentGopay</class>
         <class>com.yeahbutstill.jpa.entity.PaymentCreditCard</class>
+        <class>com.yeahbutstill.jpa.entity.Transaction</class>
+        <class>com.yeahbutstill.jpa.entity.TransactionCredit</class>
+        <class>com.yeahbutstill.jpa.entity.TransactionDebit</class>
 
         <properties>
             <property name="jakarta.persistence.jdbc.driver" value="org.postgresql.Driver"/>
