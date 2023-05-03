@@ -3,6 +3,7 @@ package com.yeahbutstill.jpa.entity;
 import jakarta.persistence.Entity;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
+import jakarta.persistence.Version;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -23,5 +24,8 @@ public class Brand extends AuditableEntity<String> {
 
     @OneToMany(mappedBy = "brand")
     private List<Product> products;
+
+    @Version // di gunakan untuk locking
+    private Long version;
 
 }

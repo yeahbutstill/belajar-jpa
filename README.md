@@ -120,8 +120,48 @@ PERLU BERHATI-HATI DENGAN FETCH EAGER
 - Pada kasus Entity, kita bisa membuat Parent Class juga, namun kita perlu memberi annotation MapperSuperClass untuk memberi tahu ini hanya sebuah Parent Class tanpa IS-A Relationship
 - Biasanya orang-orang yang membuat super class ini menggunakan Abstract Class sebagai parent class nya untuk menandai bahwa ini bukanlah entity ini sebagai parent aja yang nanti akan bisa digunakan oleh entity-entity yang ada
 
+## Locking
+- Dalam relational database, locking adalah aksi untuk mencegah data berubah dalam jeda waktu kita membaca data dan menggunakan data
+- Terdapat dua jenis locking, Optimistic dan Pessimistic
 
+## Jenis Locking 
+- Optimistic Locking adalah proses multiple transaksi, dimana tiap transaksi tidak melakukan lock terhadap data. Namun sebelum melakukan commit transaksi, tiap transaksi akan mengecek terlebih dahulu apakah data sudah berubah atau belum, jika sudah berubah dikarenakan transaksi lain, maka transaksi tersebut akan melakukan rollback
+- Pessimistic Locking adalah proses multiple transaksi, dimana tiap transaksi akan melakukan lock terhadap data yang digunakan. Hal ini menyebabkan tiap transaksi harus menunggu data yang akan digunakan jika data tersebut sedang di lock oleh transaksi lain
+- JPA mendukung implementasi Optimistic Locking dan Pessimistic Locking
 
+## Optimistic Locking
+- Optimistic Locking diimplementasikan dengan cara menambah versi data pada Class Entity untuk memberitahu jika terjadi perubahan data pada Entity
+- Pada saat transaksi melakukan commit, transaksi akan melakukan pengecekan versi terlebih dahulu, jika ternyata versi telah berubah di database, secara otomatis transaksi akan melakukan rollback
+- Optimistic Locking sangat cepat karena tidak butuh melakukan lock data, sehingga tidak perlu menunggu transaksi yang melakukan lock
+- Konsekuensinya, pada Optimistic Locking, transaksi akan sering melakukan rollback jika ternyata data yang di commit sudah berubah
+
+## Version Column
+- Saat menggunakan Optimistic Locking, wajib membuat version column yang digunakan sebagai tanda perubahan yang sudah terjadi di data
+- JPA mendukung dua jenis tipe data version, Number(Integer, Short, Long) dan Timestamp (java.sql.Timestamp, java.time.Instant)
+- Kalau menggunakan Number, bagusnya pake yang Long, karena Long itu nanti jaraknya jauh nilainya, jadi berapa miliar kali di update bisa dihandle sama Long ini
+- Untuk menandai bahwa attribute tersebut adalah version column, perlu menambahkan annotation Version
+- JPA akan secara otomatis mengupdate attribute version setiap kali melakukan update data tersebut
+
+## Kenapa Optimistic Locking?
+- Kenapa bernama Optimistic Locking, hal ini dikarenakan transaksi yang pertama selesai akan optimis bahwa datanya tidak akan diubah oleh transaksi lain
+
+## Pessimistic Locking
+- Pada Optimistic Locking, pengecekan versi data dilakukan ketika melakukan commit
+- Pada Pessimistic Locking, data akan di lock ketika di select, dan ini menjadikan transaksi lain tidak bisa mengubah data sampai transaksi yang pertama melakukan lock selesai melakukan commit transaksi
+- JPA mendukung banyak jenis tipe Lock, namum tetap saja, itu tergantung ke database yang digunakan, bisa saja database yang digunakan tidak mendukung semua jenis Lock yang terdapat di JPA
+- Semua jenis Lock terdapat di enum LockModeType
+
+## Jenis Lock Mode Type
+- NONE - Tidak ada lock, semua lock terjadi di akhir transaksi ketika data di update
+- READ / OPTIMISTIC - Versi entity akan di cek di akhir transaksi (ini adalah Optimistic Locking)
+- WRITE / OPTIMISTIC_FORCE_INCREMENT - Versi entity akan dinaikkan secara otomatis walaupun data tidak di update
+- PESSIMISTIC_FORCE_INCREMENT - Entity akan di lock secara pessimistic, dan versi akan dinaikkan walaupun data tidak di update
+- PESSIMISTIC_READ - Entity akan di lock secara pessimistic menggunakan shared lock(jika database mendukung), SELECT FOR SHARE
+- PESSIMISTIC_WRITE - Entity akan di lock secara explicit, SELECT FOR UPDATE
+
+## Kenapa Pessimistic Locking?
+- Kenapa bernama Pessimistic Locking, hal ini karena ketika transaksi pertama sudah sukses, bisa saja datanya diubah oleh transaksi kedua walaupun transaksi pertama lebih dulu selesai
+- Oleh karena itu disebut pessimistic
 
 ## Run postgre with docker
 ```shell
