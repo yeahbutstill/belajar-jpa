@@ -1,6 +1,8 @@
 package com.yeahbutstill.jpa.entity;
 
-import jakarta.persistence.*;
+import jakarta.persistence.Entity;
+import jakarta.persistence.OneToMany;
+import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -14,10 +16,7 @@ import java.util.List;
 @Setter
 @Entity
 @Table(name = "brands")
-public class Brand {
-
-    @Id
-    private String id;
+public class Brand extends AuditableEntity<String> {
 
     private String name;
     private String description;

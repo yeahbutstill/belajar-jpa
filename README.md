@@ -114,6 +114,14 @@ PERLU BERHATI-HATI DENGAN FETCH EAGER
 - Strategi ini mirip seperti dengan JOIN, namun tiap table menyimpan full kolom
 - Harap bijak ketika menggunakan strategi ini, walaupun akan jadi lebih cepat kalau ketika langsung melakukan find Child Entity (karena tidak butuh join), tapi saat melakukan find menggunakan Parent Entity, maka akan sangat lambat karena harus melakukan SELECT FROM SELECT
 
+## Mapped Superclass
+- Saat membuat Class Entity, kadang ada beberapa Class Entity yang memiliki attribute yang sama, namun bukan bagian dari IS-A Relationship
+- Pada kasus OOP biasanya kita membuat Parent Class sebagai class yang berisikan attribute-attribute yang sama
+- Pada kasus Entity, kita bisa membuat Parent Class juga, namun kita perlu memberi annotation MapperSuperClass untuk memberi tahu ini hanya sebuah Parent Class tanpa IS-A Relationship
+- Biasanya orang-orang yang membuat super class ini menggunakan Abstract Class sebagai parent class nya untuk menandai bahwa ini bukanlah entity ini sebagai parent aja yang nanti akan bisa digunakan oleh entity-entity yang ada
+
+
+
 
 ## Run postgre with docker
 ```shell

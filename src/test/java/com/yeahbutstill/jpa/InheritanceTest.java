@@ -207,4 +207,34 @@ class InheritanceTest {
 
     }
 
+    @Test
+    void testMappedSuperclassInsert() {
+        EntityManagerFactory entityManagerFactory = JpaUtil.getEMF();
+        EntityManager entityManager = entityManagerFactory.createEntityManager();
+        EntityTransaction transaction = entityManager.getTransaction();
+        transaction.begin();
+
+
+
+        Brand brand = new Brand();
+        brand.setId("xiami");
+        brand.setName("Xiaomi");
+        brand.setDescription("Xiaomi Mobile");
+        brand.setCreatedAt(LocalDateTime.now());
+        brand.setUpdatedAt(LocalDateTime.now());
+        entityManager.persist(brand);
+
+        Product product = new Product();
+        product.setId("p3");
+        product.setBrand(brand);
+        product.setName("Xiaomi Redmi Note 10 Pro");
+        product.setDescription("Xiaomi Redmi Note 10 Pro");
+        product.setPrice(5_000_000L);
+        entityManager.persist(product);
+        Assertions.assertNotNull(product);
+
+        transaction.commit();
+        entityManager.close();
+    }
+
 }
