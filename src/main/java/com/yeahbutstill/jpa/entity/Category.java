@@ -1,6 +1,6 @@
 package com.yeahbutstill.jpa.entity;
 
-import com.yeahbutstill.jpa.listener.UpdatedAtListener;
+import com.yeahbutstill.jpa.listener.CreatedAtAndUpdatedAtListener;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -16,9 +16,9 @@ import java.util.UUID;
 @AllArgsConstructor
 @Getter
 @Setter
-@EntityListeners({UpdatedAtListener.class})
+@EntityListeners({CreatedAtAndUpdatedAtListener.class})
 @Table(name = "categories")
-public class Category implements UpdatedAtWare {
+public class Category implements CreatedUpdatedAtWare {
 
     @Id
     // jangan pake yang AUTO
