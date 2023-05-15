@@ -1,7 +1,6 @@
 package com.yeahbutstill.jpa.listener;
 
 import com.yeahbutstill.jpa.entity.CreatedUpdatedAtWare;
-import jakarta.persistence.PostPersist;
 import jakarta.persistence.PrePersist;
 import jakarta.persistence.PreUpdate;
 

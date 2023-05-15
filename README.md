@@ -163,6 +163,22 @@ PERLU BERHATI-HATI DENGAN FETCH EAGER
 - Kenapa bernama Pessimistic Locking, hal ini karena ketika transaksi pertama sudah sukses, bisa saja datanya diubah oleh transaksi kedua walaupun transaksi pertama lebih dulu selesai
 - Oleh karena itu disebut pessimistic
 
+## Managed Entity
+- Salah satu fitur yang wajib dimengerti ketika menggunakan JPA adalah Managed Entity
+- Saat membuat Object Entity secara manual, mana bisa dibilang itu adalah Unmanaged Entity(Entity yang tidak di managed oleh JPA)
+- Saat Unmanaged Entity di simpan ke database menggunakan Entity Manager, Secara otomatis objectnya berubah menjadi Managed Entity
+- Setiap perubahan yang terjadi pada Managed Entity, secara otomatis akan di update ke database ketika melakukan commit, walaupun tidak melakukan update secara manual.
+
+## Find Managed Entity
+- saat melakukan find data ke database pun, secara otomatis object tersebut menjadi Managed Entity
+- Artinya setiap perubahan yang kita lakukan, secara otomatis akan di update ketika commit, walaupun tidak melakukan update secara manual
+
+## Detach Entity
+- Kadang ada kasus ketika ingin membuat Managed Entity menjadi Unmanaged Entity
+- Untuk kasus seperti itu, bisa menggunakan EntityManager.detach(entity)
+- Jika sudah menjadi Unmanaged Entity, secara otomatis perubahan yang terjadi di Entity tidak akan disimpan secara otomatis pada saat melakukan commit
+- Perubahan yang terjadi di Unmanaged Entity, harus disimpan secara manual menggunakan EntityManager.persist(entity) atau EntityManager.merge(entity)
+
 ## Run postgre with docker
 ```shell
 docker run --rm --name belajar-java-persistance-api-db \ 

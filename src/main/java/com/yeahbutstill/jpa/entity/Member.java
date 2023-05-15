@@ -46,7 +46,7 @@ public class Member {
 
     @PostLoad
     public void postLoad() {
-        // ini setelah setiap query ke database untuk data member
+        // ini setelah setiap kali query ke database untuk data member
         fullName = name.getTitle()
                 + ". " + name.getFirstName()
                 + " " + name.getMiddleName()
