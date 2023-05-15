@@ -221,6 +221,9 @@ PERLU BERHATI-HATI DENGAN FETCH EAGER
 ## Join Fetch
 - Secara default, saat melakukan join, juga bisa memaksa data table yang di join untuk di select sehingga tidak perlu melakukan select lagi untuk mendapatkan datanya
 
+## Order By Clause
+- Sama seperti di SQL. di JPA QL juga bisa menambahkan Order By Clause
+
 ## Run postgre with docker
 ```shell
 docker run --rm --name belajar-java-persistance-api-db \ 

@@ -113,4 +113,25 @@ class JpaQueryLanguageTest {
 
     }
 
+    @Test
+    void testOrderByClauseJPAQL() {
+
+        EntityManagerFactory entityManagerFactory = JpaUtil.getEMF();
+        EntityManager entityManager = entityManagerFactory.createEntityManager();
+        EntityTransaction entityTransaction = entityManager.getTransaction();
+        entityTransaction.begin();
+
+        TypedQuery<Brand> query = entityManager
+                .createQuery("SELECT B FROM Brand B ORDER BY B.name DESC", Brand.class);
+
+        List<Brand> resultList = query.getResultList();
+        for (Brand brand : resultList) {
+            System.out.println(brand.getId() + " : " + brand.getName());
+        }
+
+        entityTransaction.commit();
+        entityManager.close();
+
+    }
+
 }
