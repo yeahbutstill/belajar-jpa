@@ -207,6 +207,13 @@ PERLU BERHATI-HATI DENGAN FETCH EAGER
 - Untuk melakukan select query di JPA QL, tidak menyebutkan nama table, melainkan nama Entity nya
 - Selain itu, dalam JPA jika ingin meng-select semua attribute, tidak menggunakan tanda * (bintang), melainkan menggunakan nama alias dari Entity nya
 
+## Where Clause
+- Saat ingin menggunakan where clause pada select query, bisa menggunakan nama attribute di Entity nya, bukan nama kolom di table
+- Jika attribute nya berupa embedded class, bisa menyebut object di dalam nya menggunakan tanda . (titik)
+
+## Parameter
+- Jika membutuhkan parameter pada where clause, bisa menggunakan tanda : (titik dua) diikuti dengan nama parameter
+
 ## Run postgre with docker
 ```shell
 docker run --rm --name belajar-java-persistance-api-db \ 

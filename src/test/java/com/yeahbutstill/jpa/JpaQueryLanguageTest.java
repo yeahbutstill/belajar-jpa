@@ -1,6 +1,7 @@
 package com.yeahbutstill.jpa;
 
 import com.yeahbutstill.jpa.entity.Brand;
+import com.yeahbutstill.jpa.entity.Member;
 import com.yeahbutstill.jpa.utils.JpaUtil;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
@@ -32,6 +33,31 @@ class JpaQueryLanguageTest {
         for (Brand brand : brands) {
             System.out.println(brand.getId() + " : " + brand.getName());
         }
+
+        entityTransaction.commit();
+        entityManager.close();
+
+    }
+
+    @Test
+    void testWhereClauseJPAQL() {
+
+        EntityManagerFactory entityManagerFactory = JpaUtil.getEMF();
+        EntityManager entityManager = entityManagerFactory.createEntityManager();
+        EntityTransaction entityTransaction = entityManager.getTransaction();
+        entityTransaction.begin();
+
+        TypedQuery<Member> query = entityManager
+                .createQuery("SELECT M FROM Member M WHERE M.name.firstName = :firstName " +
+                        "AND M.name.lastName = :lastName", Member.class);
+        query.setParameter("firstName", "Dani");
+        query.setParameter("lastName", "Setiawan");
+
+        List<Member> members = query.getResultList();
+        for (Member member : members) {
+            System.out.println(member.getId() + " : " + member.getFullName() + " : " + member.getEmail());
+        }
+
 
         entityTransaction.commit();
         entityManager.close();
