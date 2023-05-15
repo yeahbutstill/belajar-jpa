@@ -179,6 +179,30 @@ PERLU BERHATI-HATI DENGAN FETCH EAGER
 - Jika sudah menjadi Unmanaged Entity, secara otomatis perubahan yang terjadi di Entity tidak akan disimpan secara otomatis pada saat melakukan commit
 - Perubahan yang terjadi di Unmanaged Entity, harus disimpan secara manual menggunakan EntityManager.persist(entity) atau EntityManager.merge(entity)
 
+## Schema Generator
+- JPA memiliki fitur untuk membuat Table secara otomatis dari Class Entity yang ada
+- Walaupun fitur ini sangat menarik, namun sangat tidak disarankan untuk membuat table secara otomatis, karena akan sulit melakukan tracking perubahan schema database nya
+- Sangat disarankan menggunakan database versioning seperti flywaydb
+- https://flywaydb.org
+- Untuk menggunakan fitur Hibernate Schema Generator, bisa gunakan property jakarta.persistance.schema-generation.database.action di file persistance.xml dengan value:
+- none, tidak melakukan apapun
+- create, membuat schema
+- drop, menghapus schema
+- drop-and-create, menghapus schema dan membuat nya
+
+## JPA Query Language
+- Untuk melakukan Query ke Database, JPA memiliki standarisasi Query Language, jadi tidak menggunakan SQL yang spesifik ke database yang digunakan
+- Hal ini dikarenakan dengan menggunakan JPA, bisa mengganti-ganti databse yang akan digunakan, sehingga untuk Query Language nya pun perlu dibuat standar
+- Namun tidak perlu khawatir, karena JPA Query Language sangat mirip dengan SQL
+
+## Query
+- Saat menggunakan JPA QL, object yang dihasilkan adalah object dari class Query
+- Class Query mirip seperti PreparedStatement, dimana bisa menambahkan parameter jika JPA QL yang dibuat membutuhkan parameter
+
+## TypedQuery<T>
+- Class Query akan mengembalikan Object sehingga perlu melakukan konversi tipe dara secara manual
+- Jika melakukan query yang sudah jelas Entity nya, sangat disarankan menggunakan TypedQuery
+
 ## Run postgre with docker
 ```shell
 docker run --rm --name belajar-java-persistance-api-db \ 
@@ -188,6 +212,17 @@ docker run --rm --name belajar-java-persistance-api-db \
 -e PGDATA=/var/lib/postgresql/data/pgdata \
 -v "$PWD/belajar-java-persistance-api-db-data:/var/lib/postgresql/data" \
 -p 5432:5432 \
+postgres:15
+```
+For Unit Test
+```shell
+docker run --rm --name belajar-java-persistance-api-test-db \ 
+-e POSTGRES_DB=belajar_java_persistance_api_test \
+-e POSTGRES_USER=dani \
+-e POSTGRES_PASSWORD=dani \
+-e PGDATA=/var/lib/postgresql/data/pgdata \
+-v "$PWD/belajar-java-persistance-api-test-db-data:/var/lib/postgresql/data" \
+-p 5433:5432 \
 postgres:15
 ```
 
