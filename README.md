@@ -229,6 +229,13 @@ PERLU BERHATI-HATI DENGAN FETCH EAGER
 - setMaxResults(n) untuk mengatur limit nya
 - setFirstResult(n) untuk mengatur offset nya
 
+## Named Query
+- JPA memiliki fitur bernama Named Query, dimana bisa membuat alias untuk JPA QL yang dibuat
+- Salah satu keuntungan menggunakan Named Query adalah, bisa menggunakan JPA QL yang sudah dibuat berkali-kali hanya dengan menyebut nama alias nya
+- Biasanya Named Query akan di tempatkan di Entity Class yang sesuai dengan Query nya
+- Untuk membuat Named Query, bisa menggunakan annotation NamedQuery
+- Dan untuk memanggilnya, bisa menggunakan EntityManager.createNamedQuery(alias, class)
+
 ## Run postgre with docker
 ```shell
 docker run --rm --name belajar-java-persistance-api-db \ 

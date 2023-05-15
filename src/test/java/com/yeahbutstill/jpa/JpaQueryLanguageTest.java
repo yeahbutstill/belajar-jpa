@@ -177,4 +177,25 @@ class JpaQueryLanguageTest {
 
     }
 
+    @Test
+    void testNamedQuery() {
+
+        EntityManagerFactory entityManagerFactory = JpaUtil.getEMF();
+        EntityManager entityManager = entityManagerFactory.createEntityManager();
+        EntityTransaction entityTransaction = entityManager.getTransaction();
+        entityTransaction.begin();
+
+        TypedQuery<Brand> namedQuery = entityManager.createNamedQuery("Brand.findAllByName", Brand.class);
+        namedQuery.setParameter("name", "Samsung");
+
+        List<Brand> resultList = namedQuery.getResultList();
+        for (Brand brand : resultList) {
+            System.out.println(brand.getId() + " : " + brand.getName());
+        }
+
+        entityTransaction.commit();
+        entityManager.close();
+
+    }
+
 }

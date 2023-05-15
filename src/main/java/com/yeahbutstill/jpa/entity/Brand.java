@@ -1,9 +1,6 @@
 package com.yeahbutstill.jpa.entity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.OneToMany;
-import jakarta.persistence.Table;
-import jakarta.persistence.Version;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -17,6 +14,10 @@ import java.util.List;
 @Setter
 @Entity
 @Table(name = "brands")
+@NamedQueries({
+    @NamedQuery(name = "Brand.findAll", query = "SELECT B FROM Brand B"),
+        @NamedQuery(name = "Brand.findAllByName", query = "SELECT B FROM Brand B WHERE B.name = :name"),
+})
 public class Brand extends AuditableEntity<String> {
 
     private String name;
