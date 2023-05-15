@@ -236,6 +236,18 @@ PERLU BERHATI-HATI DENGAN FETCH EAGER
 - Untuk membuat Named Query, bisa menggunakan annotation NamedQuery
 - Dan untuk memanggilnya, bisa menggunakan EntityManager.createNamedQuery(alias, class)
 
+## Constructor Expression
+- ### Select Some Fields
+  - Saat melakukan Query, kadang ada kasus hanya ingin meng-select bebrapa field saja
+  - Pada kasus seperti ini, bisa ganti mapping ke Object[]
+  - Namun, karena hasilnya adalah Object[], agak tidak aman karena harus konversi ke tipe data yang aslinya secara manual
+- ### Constructor Expression
+  - JPA memiliki fitur dimana bisa memanggil constructor sebuah class ketika melakukan select
+  - Sehingga dibanding menggunakan tipe data Object[], bisa mapping field yang kita select, ke constructor sebuah class
+  - bisa gunakan query
+  - select new nama.package.Class(field, field, ...)
+
+
 ## Run postgre with docker
 ```shell
 docker run --rm --name belajar-java-persistance-api-db \ 

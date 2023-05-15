@@ -14,10 +14,8 @@ import java.util.List;
 @Setter
 @Entity
 @Table(name = "brands")
-@NamedQueries({
-    @NamedQuery(name = "Brand.findAll", query = "SELECT B FROM Brand B"),
-        @NamedQuery(name = "Brand.findAllByName", query = "SELECT B FROM Brand B WHERE B.name = :name"),
-})
+@NamedQuery(name = "Brand.findAll", query = "SELECT B FROM Brand B")
+@NamedQuery(name = "Brand.findAllByName", query = "SELECT B FROM Brand B WHERE B.name = :name")
 public class Brand extends AuditableEntity<String> {
 
     private String name;

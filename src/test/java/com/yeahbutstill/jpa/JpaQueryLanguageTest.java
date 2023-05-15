@@ -1,9 +1,6 @@
 package com.yeahbutstill.jpa;
 
-import com.yeahbutstill.jpa.entity.Brand;
-import com.yeahbutstill.jpa.entity.Member;
-import com.yeahbutstill.jpa.entity.Product;
-import com.yeahbutstill.jpa.entity.User;
+import com.yeahbutstill.jpa.entity.*;
 import com.yeahbutstill.jpa.utils.JpaUtil;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
@@ -191,6 +188,51 @@ class JpaQueryLanguageTest {
         List<Brand> resultList = namedQuery.getResultList();
         for (Brand brand : resultList) {
             System.out.println(brand.getId() + " : " + brand.getName());
+        }
+
+        entityTransaction.commit();
+        entityManager.close();
+
+    }
+
+    @Test
+    void testSelectSomeFields() {
+
+        EntityManagerFactory entityManagerFactory = JpaUtil.getEMF();
+        EntityManager entityManager = entityManagerFactory.createEntityManager();
+        EntityTransaction entityTransaction = entityManager.getTransaction();
+        entityTransaction.begin();
+
+        TypedQuery<Object[]> query = entityManager
+                .createQuery("select b.id, b.name from Brand b where b.name = :name", Object[].class);
+        query.setParameter("name", "Samsung");
+
+        List<Object[]> resultList = query.getResultList();
+        for (Object[] object : resultList) {
+            System.out.println(object[0] + " : " + object[1]);
+        }
+
+        entityTransaction.commit();
+        entityManager.close();
+
+    }
+
+    @Test
+    void testSelectNewConstructor() {
+
+        EntityManagerFactory entityManagerFactory = JpaUtil.getEMF();
+        EntityManager entityManager = entityManagerFactory.createEntityManager();
+        EntityTransaction entityTransaction = entityManager.getTransaction();
+        entityTransaction.begin();
+
+        TypedQuery<SimpleBrand> query = entityManager
+                .createQuery("select new com.yeahbutstill.jpa.entity.SimpleBrand(b.id, b.name) " +
+                        "from Brand b where b.name = :name", SimpleBrand.class);
+        query.setParameter("name", "Samsung");
+
+        List<SimpleBrand> resultList = query.getResultList();
+        for (SimpleBrand simpleBrand : resultList) {
+            System.out.println(simpleBrand.getId() + " : " + simpleBrand.getName());
         }
 
         entityTransaction.commit();
