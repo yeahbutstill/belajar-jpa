@@ -203,6 +203,10 @@ PERLU BERHATI-HATI DENGAN FETCH EAGER
 - Class Query akan mengembalikan Object sehingga perlu melakukan konversi tipe dara secara manual
 - Jika melakukan query yang sudah jelas Entity nya, sangat disarankan menggunakan TypedQuery
 
+## Select Query
+- Untuk melakukan select query di JPA QL, tidak menyebutkan nama table, melainkan nama Entity nya
+- Selain itu, dalam JPA jika ingin meng-select semua attribute, tidak menggunakan tanda * (bintang), melainkan menggunakan nama alias dari Entity nya
+
 ## Run postgre with docker
 ```shell
 docker run --rm --name belajar-java-persistance-api-db \ 
