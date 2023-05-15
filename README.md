@@ -247,6 +247,15 @@ PERLU BERHATI-HATI DENGAN FETCH EAGER
   - bisa gunakan query
   - select new nama.package.Class(field, field, ...)
 
+## Aggregate Query
+- JPA juga mendukung banyak sekali aggregate function seperti MIN, MAX, AVERAGE, dan lain-lain
+- Keuntungan menggunakan aggregate function di JPA QL, dia bisa otomatis mentranslate ke aggregate function di database yang kita gunakan
+- Untuk mengecek aggregate function yang didukung oleh JPA QL, harus lihat implementasi dari JPA Provider nya
+- Contohnya di Hibernate ORM, bisa lihat daftar aggregate function yang didukung
+
+## Group By dan Having
+- sama seperti di SQL, di JPA QL juga mendukung Group By dan Having pada Aggregate Query
+- Cara penggunaannya pun sama seperti di SQL
 
 ## Run postgre with docker
 ```shell

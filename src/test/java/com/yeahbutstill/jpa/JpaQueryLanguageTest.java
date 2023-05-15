@@ -240,4 +240,53 @@ class JpaQueryLanguageTest {
 
     }
 
+    @Test
+    void testAggrgateFunction() {
+
+        EntityManagerFactory entityManagerFactory = JpaUtil.getEMF();
+        EntityManager entityManager = entityManagerFactory.createEntityManager();
+        EntityTransaction entityTransaction = entityManager.getTransaction();
+        entityTransaction.begin();
+
+        TypedQuery<Object[]> query = entityManager
+                .createQuery("select min(p.price), max(p.price), avg(p.price) from Product p", Object[].class);
+
+        Object[] singleResult = query.getSingleResult();
+        System.out.println("Min " + singleResult[0]);
+        System.out.println("Max " + singleResult[1]);
+        System.out.println("Average " + singleResult[2]);
+
+        entityTransaction.commit();
+        entityManager.close();
+
+    }
+
+    @Test
+    void testGroupByAndHaving() {
+
+        EntityManagerFactory entityManagerFactory = JpaUtil.getEMF();
+        EntityManager entityManager = entityManagerFactory.createEntityManager();
+        EntityTransaction entityTransaction = entityManager.getTransaction();
+        entityTransaction.begin();
+
+        TypedQuery<Object[]> query = entityManager
+                .createQuery("select b.id, min(p.price), max(p.price), avg(p.price) from Product p " +
+                        "join p.brand b group by b.id having min(p.price) > :min", Object[].class);
+
+        query.setParameter("min", 500_000L);
+
+        List<Object[]> resultList = query.getResultList();
+        for (Object[] object : resultList) {
+            System.out.println("Brand : " + object[0]);
+            System.out.println("Min : " + object[1]);
+            System.out.println("Max : " + object[2]);
+            System.out.println("Average : " + object[3]);
+            System.out.println("-------------------------");
+        }
+
+        entityTransaction.commit();
+        entityManager.close();
+
+    }
+
 }
