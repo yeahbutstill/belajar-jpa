@@ -214,6 +214,13 @@ PERLU BERHATI-HATI DENGAN FETCH EAGER
 ## Parameter
 - Jika membutuhkan parameter pada where clause, bisa menggunakan tanda : (titik dua) diikuti dengan nama parameter
 
+## Join Clause
+- Melakukan join di JPA QL sangat mudah, karena informasi join nya sudah terdapat di Entity Class nya
+- Hanya cukup gunakan perintah join diikuti attribute di Entity
+
+## Join Fetch
+- Secara default, saat melakukan join, juga bisa memaksa data table yang di join untuk di select sehingga tidak perlu melakukan select lagi untuk mendapatkan datanya
+
 ## Run postgre with docker
 ```shell
 docker run --rm --name belajar-java-persistance-api-db \ 

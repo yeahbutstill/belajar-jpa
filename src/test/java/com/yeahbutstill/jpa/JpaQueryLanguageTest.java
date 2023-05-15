@@ -2,6 +2,8 @@ package com.yeahbutstill.jpa;
 
 import com.yeahbutstill.jpa.entity.Brand;
 import com.yeahbutstill.jpa.entity.Member;
+import com.yeahbutstill.jpa.entity.Product;
+import com.yeahbutstill.jpa.entity.User;
 import com.yeahbutstill.jpa.utils.JpaUtil;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
@@ -58,6 +60,53 @@ class JpaQueryLanguageTest {
             System.out.println(member.getId() + " : " + member.getFullName() + " : " + member.getEmail());
         }
 
+
+        entityTransaction.commit();
+        entityManager.close();
+
+    }
+
+    @Test
+    void testJoinClauseJPAQL() {
+
+        EntityManagerFactory entityManagerFactory = JpaUtil.getEMF();
+        EntityManager entityManager = entityManagerFactory.createEntityManager();
+        EntityTransaction entityTransaction = entityManager.getTransaction();
+        entityTransaction.begin();
+
+        TypedQuery<Product> query = entityManager
+                .createQuery("SELECT P FROM Product P JOIN P.brand B WHERE B.name = :brand ", Product.class);
+        query.setParameter("brand", "Samsung");
+
+        List<Product> resultList = query.getResultList();
+        for (Product product : resultList) {
+            System.out.println(product.getId() + " : " + product.getName() + " : " + product.getPrice());
+        }
+
+        entityTransaction.commit();
+        entityManager.close();
+
+    }
+
+    @Test
+    void testJoinFetchClauseJPAQL() {
+
+        EntityManagerFactory entityManagerFactory = JpaUtil.getEMF();
+        EntityManager entityManager = entityManagerFactory.createEntityManager();
+        EntityTransaction entityTransaction = entityManager.getTransaction();
+        entityTransaction.begin();
+
+        TypedQuery<User> query = entityManager
+                .createQuery("SELECT U FROM User U JOIN FETCH U.likes P WHERE P.name = :product", User.class);
+        query.setParameter("product", "Samsung Galaxy S10");
+
+        List<User> resultList = query.getResultList();
+        for (User user : resultList) {
+            System.out.println("User : " + user.getName());
+            for (Product product : user.getLikes()) {
+                System.out.println("Product : " + product.getName());
+            }
+        }
 
         entityTransaction.commit();
         entityManager.close();
