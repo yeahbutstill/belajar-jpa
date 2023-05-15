@@ -224,6 +224,11 @@ PERLU BERHATI-HATI DENGAN FETCH EAGER
 ## Order By Clause
 - Sama seperti di SQL. di JPA QL juga bisa menambahkan Order By Clause
 
+## Limit Offset
+- Untuk menambahkan Limit Offset di JPA QL, bisa menggunakan method di Query atau TypedQuery<T>
+- setMaxResults(n) untuk mengatur limit nya
+- setFirstResult(n) untuk mengatur offset nya
+
 ## Run postgre with docker
 ```shell
 docker run --rm --name belajar-java-persistance-api-db \ 

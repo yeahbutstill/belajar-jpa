@@ -134,4 +134,47 @@ class JpaQueryLanguageTest {
 
     }
 
+    @Test
+    void testInsertRandomBrands() {
+
+        EntityManagerFactory entityManagerFactory = JpaUtil.getEMF();
+        EntityManager entityManager = entityManagerFactory.createEntityManager();
+        EntityTransaction entityTransaction = entityManager.getTransaction();
+        entityTransaction.begin();
+
+        for (int i = 0; i < 100; i++) {
+            Brand brand = new Brand();
+            brand.setId(String.valueOf(i));
+            brand.setName("Brand " + i);
+            entityManager.persist(brand);
+        }
+
+        entityTransaction.commit();
+        entityManager.close();
+
+    }
+
+    @Test
+    void testLimitOffsetJPAQL() {
+
+        EntityManagerFactory entityManagerFactory = JpaUtil.getEMF();
+        EntityManager entityManager = entityManagerFactory.createEntityManager();
+        EntityTransaction entityTransaction = entityManager.getTransaction();
+        entityTransaction.begin();
+
+        TypedQuery<Brand> query = entityManager
+                .createQuery("SELECT B FROM Brand B ORDER BY B.name DESC", Brand.class);
+        query.setFirstResult(10); // ini 10 di awal yang akan di skip
+        query.setMaxResults(10); // ini 10 di akhir yang akan di tampilkan
+
+        List<Brand> resultList = query.getResultList();
+        for (Brand brand : resultList) {
+            System.out.println(brand.getId() + " : " + brand.getName());
+        }
+
+        entityTransaction.commit();
+        entityManager.close();
+
+    }
+
 }
