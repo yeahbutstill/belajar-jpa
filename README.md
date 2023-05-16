@@ -286,6 +286,11 @@ PERLU BERHATI-HATI DENGAN FETCH EAGER
 - CriteriaQuery merupakan object yang digunakan untuk menambahkan informasi query yang akan dilakukan, seperti select dari entity mana, field apa yang akan diambil dan kondisi where apa yang akan dilakukan
 - Setelah selesai membuat CriteriaQuery, bisa gunakan EntityManager.createQuery(criteria) untuk mengkonversi menjadi Query hasilnya
 
+## Criteria Select Non Entity
+- Secara default saat menggunakan CriteriaQuery.select(root), dia akan melakukan select Entity yang sudah kita pilih
+- Criteria juga bisa digunakan untuk melakukan select ke non entity
+- Kita bisa memanfaatkan Root<T> untuk meng-select field mana saja yang ingin di select
+
 ## Run postgre with docker
 ```shell
 docker run --rm --name belajar-java-persistance-api-db \ 
