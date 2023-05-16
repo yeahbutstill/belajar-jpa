@@ -2,10 +2,7 @@ package com.yeahbutstill.jpa;
 
 import com.yeahbutstill.jpa.entity.*;
 import com.yeahbutstill.jpa.utils.JpaUtil;
-import jakarta.persistence.EntityManager;
-import jakarta.persistence.EntityManagerFactory;
-import jakarta.persistence.EntityTransaction;
-import jakarta.persistence.TypedQuery;
+import jakarta.persistence.*;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;
@@ -282,6 +279,46 @@ class JpaQueryLanguageTest {
             System.out.println("Max : " + object[2]);
             System.out.println("Average : " + object[3]);
             System.out.println("-------------------------");
+        }
+
+        entityTransaction.commit();
+        entityManager.close();
+
+    }
+
+    @Test
+    void testNativeQuery() {
+
+        EntityManagerFactory entityManagerFactory = JpaUtil.getEMF();
+        EntityManager entityManager = entityManagerFactory.createEntityManager();
+        EntityTransaction entityTransaction = entityManager.getTransaction();
+        entityTransaction.begin();
+
+        Query nativeQuery = entityManager.createNativeQuery("select * from brands where brands.created_at is not null", Brand.class);
+        List<Brand> brands = nativeQuery.getResultList();
+
+        for (Brand brand : brands) {
+            System.out.println(brand.getId() + " : " + brand.getName());
+        }
+
+        entityTransaction.commit();
+        entityManager.close();
+
+    }
+
+    @Test
+    void testNamedNativeQuery() {
+
+        EntityManagerFactory entityManagerFactory = JpaUtil.getEMF();
+        EntityManager entityManager = entityManagerFactory.createEntityManager();
+        EntityTransaction entityTransaction = entityManager.getTransaction();
+        entityTransaction.begin();
+
+        Query nativeQuery = entityManager.createNamedQuery("Brand.native.findAll", Brand.class);
+        List<Brand> brands = nativeQuery.getResultList();
+
+        for (Brand brand : brands) {
+            System.out.println(brand.getId() + " : " + brand.getName());
         }
 
         entityTransaction.commit();

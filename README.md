@@ -257,6 +257,15 @@ PERLU BERHATI-HATI DENGAN FETCH EAGER
 - sama seperti di SQL, di JPA QL juga mendukung Group By dan Having pada Aggregate Query
 - Cara penggunaannya pun sama seperti di SQL
 
+## Native Query
+- Pada kasus tertentu, kadang ada Query yang akhirnya harus dibuat langsung spesifik menggunakan SQL database yang kita gunakan
+- Walaupun hal ini tidak disarankan, karena bisa membuat kita kesulitan ketika akan mengubah database yang sedang digunakan, namun fitur ini juga bisa dilakukan di JPA
+- Bisa menggunakan method EntityManager.createNativeQuery(query, class)
+
+## Named Native Query
+- Native Query juga bisa dibuat dalam Named Native Query, sehingga bisa gunakan alias untuk menggunakan Native Query nya
+- Maka bisa gunakan annotation NamedNativeQuery
+
 ## Run postgre with docker
 ```shell
 docker run --rm --name belajar-java-persistance-api-db \ 

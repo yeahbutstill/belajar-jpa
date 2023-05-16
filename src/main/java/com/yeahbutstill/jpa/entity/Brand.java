@@ -16,6 +16,7 @@ import java.util.List;
 @Table(name = "brands")
 @NamedQuery(name = "Brand.findAll", query = "SELECT B FROM Brand B")
 @NamedQuery(name = "Brand.findAllByName", query = "SELECT B FROM Brand B WHERE B.name = :name")
+@NamedNativeQuery(name = "Brand.native.findAll", query = "SELECT * FROM brands", resultClass = Brand.class)
 public class Brand extends AuditableEntity<String> {
 
     private String name;
