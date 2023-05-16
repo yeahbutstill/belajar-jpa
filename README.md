@@ -266,6 +266,26 @@ PERLU BERHATI-HATI DENGAN FETCH EAGER
 - Native Query juga bisa dibuat dalam Named Native Query, sehingga bisa gunakan alias untuk menggunakan Native Query nya
 - Maka bisa gunakan annotation NamedNativeQuery
 
+## Non Query
+- JPA QL juga bisa digunakan untuk membuat perintah Update atau Delete
+- Cukup buat query nya seperti biasa, dan untuk melakukan execute nya, bisa gunakan method Query.executeUpdate()
+- ini bisa dilakukan baik itu menggunakan JPA QL atau Native Query
+
+## Criteria = 
+- Criteria adalah fitur di JPA yang bisa digunakan untuk membuat JPA QL secara dinamis
+- Saat membuat Query menggunakan JPA, sejak awal harus menentukan Query yang akan digunakan
+- Kadang ada kasus ingin membuat query nya secara dinamis
+- Contoh kasus pada saat pencarian data, field/kolom yang ingin kita cari mungkin akan dinamis sesuai dengan yang di inputkan oleh user
+- Pada kasus seperti ini, Criteria akan sangat membantu
+
+## CriteriaBuilder
+- Untuk menggunakan Criteria, pertama harus membuat CriteriaBuilder dengan menggunakan EntityManager
+- CriteriaBuilder bisa digunakan untuk membuat CriteriaQuery
+
+## Criteria Query
+- CriteriaQuery merupakan object yang digunakan untuk menambahkan informasi query yang akan dilakukan, seperti select dari entity mana, field apa yang akan diambil dan kondisi where apa yang akan dilakukan
+- Setelah selesai membuat CriteriaQuery, bisa gunakan EntityManager.createQuery(criteria) untuk mengkonversi menjadi Query hasilnya
+
 ## Run postgre with docker
 ```shell
 docker run --rm --name belajar-java-persistance-api-db \ 

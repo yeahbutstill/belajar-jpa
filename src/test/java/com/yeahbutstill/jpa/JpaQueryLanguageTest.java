@@ -326,4 +326,23 @@ class JpaQueryLanguageTest {
 
     }
 
+    @Test
+    void nonQuery() {
+
+        EntityManagerFactory entityManagerFactory = JpaUtil.getEMF();
+        EntityManager entityManager = entityManagerFactory.createEntityManager();
+        EntityTransaction entityTransaction = entityManager.getTransaction();
+        entityTransaction.begin();
+
+        Query query = entityManager.createQuery("update Brand b set b.name = :name where b.id = :id");
+        query.setParameter("name", "Samsung Update");
+        query.setParameter("id", "samsung");
+        int impactedRecords = query.executeUpdate();
+        System.out.println("Success update " + impactedRecords + " records");
+
+        entityTransaction.commit();
+        entityManager.close();
+
+    }
+
 }
