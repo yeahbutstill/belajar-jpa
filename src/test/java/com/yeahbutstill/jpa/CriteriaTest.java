@@ -4,10 +4,7 @@ import com.yeahbutstill.jpa.entity.Brand;
 import com.yeahbutstill.jpa.entity.Product;
 import com.yeahbutstill.jpa.entity.SimpleBrand;
 import com.yeahbutstill.jpa.utils.JpaUtil;
-import jakarta.persistence.EntityManager;
-import jakarta.persistence.EntityManagerFactory;
-import jakarta.persistence.EntityTransaction;
-import jakarta.persistence.TypedQuery;
+import jakarta.persistence.*;
 import jakarta.persistence.criteria.*;
 import org.junit.jupiter.api.Test;
 
@@ -254,6 +251,30 @@ class CriteriaTest {
             System.out.println("Max Price : " + objects[2]);
             System.out.println("Avg Price : " + objects[3]);
         }
+
+        entityTransaction.commit();
+        entityManager.close();
+
+    }
+
+    @Test
+    void testCriteriaNonQuerySelectCriteriaUpdate() {
+
+        EntityManagerFactory entityManagerFactory = JpaUtil.getEMF();
+        EntityManager entityManager = entityManagerFactory.createEntityManager();
+        EntityTransaction entityTransaction = entityManager.getTransaction();
+        entityTransaction.begin();
+
+        CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
+        CriteriaUpdate<Brand> criteriaUpdate = criteriaBuilder.createCriteriaUpdate(Brand.class);
+        Root<Brand> b = criteriaUpdate.from(Brand.class);
+
+        criteriaUpdate.set(b.get("name"), "Apple Updated");
+        criteriaUpdate.where(criteriaBuilder.equal(b.get("id"), "apple-in"));
+
+        Query query = entityManager.createQuery(criteriaUpdate);
+        int impactedRecords = query.executeUpdate();
+        System.out.println("Success Update : " + impactedRecords + " records");
 
         entityTransaction.commit();
         entityManager.close();

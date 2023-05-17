@@ -312,6 +312,14 @@ PERLU BERHATI-HATI DENGAN FETCH EAGER
 - Aggregate Function terdapat di Criteria Builder
 - Group By dan Having bisa digunakan di Criteria Query
 
+## Criteria Non Query
+- Criteria juga bisa digunakan untuk membuat perintah yang non Query Select, seperti Update dan Delete, namun caranya sedikit berbeda
+- Untuk membuat perintah Update, gunakan CriteriaBuilder.createCriteriaUpdate(class)
+- Return nya adalah object CriteriaUpdate<T>
+- Dan untuk membuat perintah Delete, gunakan CriteriaBuilder.createCriteriaDelete(class)
+- Return nya adalah object CriteriaDelete<T>
+
+
 
 ## Run postgre with docker
 ```shell
