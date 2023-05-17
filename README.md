@@ -301,6 +301,13 @@ PERLU BERHATI-HATI DENGAN FETCH EAGER
 - Untuk melakukan join, bisa gunakan Root<T>.join()
 - Pada kasus hanya butuh melakukan join fetch, kita juga bisa gunakan Root<T>.fetch()
 
+## Criteria Parameter 
+- Sebelumnya pada kondisi WHERE, kita selalu menggunakan value langsung
+- Kita juga bisa ganti menjadi named parameter seperti di JPA QL
+- Sehingga kita bisa ubah nilai paramater nya ketika sudah membuat Query nya
+- Kita bisa gunakan CriteriaBuilder.parameter()
+
+
 
 ## Run postgre with docker
 ```shell

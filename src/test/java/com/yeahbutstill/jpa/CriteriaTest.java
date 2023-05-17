@@ -8,10 +8,7 @@ import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
 import jakarta.persistence.EntityTransaction;
 import jakarta.persistence.TypedQuery;
-import jakarta.persistence.criteria.CriteriaBuilder;
-import jakarta.persistence.criteria.CriteriaQuery;
-import jakarta.persistence.criteria.Join;
-import jakarta.persistence.criteria.Root;
+import jakarta.persistence.criteria.*;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;
@@ -171,12 +168,47 @@ class CriteriaTest {
         criteriaQuery.where(
                 criteriaBuilder.equal(brandRoot.get("name"), "Samsung Update")
         );
-        // select productRoot from Product productRoot join productRoot.brand brandRoot where brandRoot.name = "Samsung Update"
+        // select productRoot from Product productRoot join productRoot.brand brandRoot where brandRoot.name = 'Samsung Update'
 
         TypedQuery<Brand> query = entityManager.createQuery(criteriaQuery);
         List<Brand> resultList = query.getResultList();
         for (Brand brand : resultList) {
             System.out.println(brand.getId() + " : " + brand.getName());
+        }
+
+        entityTransaction.commit();
+        entityManager.close();
+
+    }
+
+    @Test
+    void testCriteriaParameter() {
+
+        EntityManagerFactory entityManagerFactory = JpaUtil.getEMF();
+        EntityManager entityManager = entityManagerFactory.createEntityManager();
+        EntityTransaction entityTransaction = entityManager.getTransaction();
+        entityTransaction.begin();
+
+        CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
+        CriteriaQuery<Product> criteriaQuery = criteriaBuilder.createQuery(Product.class);
+        Root<Product> p = criteriaQuery.from(Product.class);
+        Join<Product, Brand> b= p.join("brand");
+
+        ParameterExpression<String> brandParameterExpression = criteriaBuilder.parameter(String.class, "brand");
+
+        // select p from Product p join p.brand b
+        criteriaQuery.select(p);
+        criteriaQuery.where(
+                criteriaBuilder.equal(b.get("name"), brandParameterExpression)
+        );
+        // select p from Product p join p.brand b where b.name = 'Samsung Update'
+
+        TypedQuery<Product> query = entityManager.createQuery(criteriaQuery);
+        query.setParameter(brandParameterExpression, "Samsung Update");
+
+        List<Product> resultList = query.getResultList();
+        for (Product product : resultList) {
+            System.out.println(product.getId() + " : " + product.getName());
         }
 
         entityTransaction.commit();
