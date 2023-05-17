@@ -296,6 +296,12 @@ PERLU BERHATI-HATI DENGAN FETCH EAGER
 - Dan untuk menambahkan kondisi AND, OR atau operasi =, !=, dan lain-lain, kita bisa gunakan CriteriaBuilder
 - Secara default, operasi yang tidak kita sebutkan AND atau OR, akan menggunakan AND
 
+## Criteria Join Clause
+- Sebelumnya menggunakan Root<T> sebagai informasi SELECT
+- Untuk melakukan join, bisa gunakan Root<T>.join()
+- Pada kasus hanya butuh melakukan join fetch, kita juga bisa gunakan Root<T>.fetch()
+
+
 ## Run postgre with docker
 ```shell
 docker run --rm --name belajar-java-persistance-api-db \ 

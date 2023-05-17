@@ -1,6 +1,7 @@
 package com.yeahbutstill.jpa;
 
 import com.yeahbutstill.jpa.entity.Brand;
+import com.yeahbutstill.jpa.entity.Product;
 import com.yeahbutstill.jpa.entity.SimpleBrand;
 import com.yeahbutstill.jpa.utils.JpaUtil;
 import jakarta.persistence.EntityManager;
@@ -9,6 +10,7 @@ import jakarta.persistence.EntityTransaction;
 import jakarta.persistence.TypedQuery;
 import jakarta.persistence.criteria.CriteriaBuilder;
 import jakarta.persistence.criteria.CriteriaQuery;
+import jakarta.persistence.criteria.Join;
 import jakarta.persistence.criteria.Root;
 import org.junit.jupiter.api.Test;
 
@@ -139,6 +141,37 @@ class CriteriaTest {
                     criteriaBuilder.equal(b.get("name"), "Xiaomi")
                 )
         );
+
+        TypedQuery<Brand> query = entityManager.createQuery(criteriaQuery);
+        List<Brand> resultList = query.getResultList();
+        for (Brand brand : resultList) {
+            System.out.println(brand.getId() + " : " + brand.getName());
+        }
+
+        entityTransaction.commit();
+        entityManager.close();
+
+    }
+
+    @Test
+    void testCriteriaJoinClause() {
+
+        EntityManagerFactory entityManagerFactory = JpaUtil.getEMF();
+        EntityManager entityManager = entityManagerFactory.createEntityManager();
+        EntityTransaction entityTransaction = entityManager.getTransaction();
+        entityTransaction.begin();
+
+        CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
+        CriteriaQuery<Brand> criteriaQuery = criteriaBuilder.createQuery(Brand.class);
+        Root<Product> productRoot = criteriaQuery.from(Product.class);
+        Join<Product, Brand> brandRoot = productRoot.join("brand");
+
+        // select productRoot from Product productRoot join productRoot.brand brandRoot
+        criteriaQuery.select(brandRoot);
+        criteriaQuery.where(
+                criteriaBuilder.equal(brandRoot.get("name"), "Samsung Update")
+        );
+        // select productRoot from Product productRoot join productRoot.brand brandRoot where brandRoot.name = "Samsung Update"
 
         TypedQuery<Brand> query = entityManager.createQuery(criteriaQuery);
         List<Brand> resultList = query.getResultList();
