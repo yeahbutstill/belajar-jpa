@@ -291,6 +291,11 @@ PERLU BERHATI-HATI DENGAN FETCH EAGER
 - Criteria juga bisa digunakan untuk melakukan select ke non entity
 - Kita bisa memanfaatkan Root<T> untuk meng-select field mana saja yang ingin di select
 
+## Criteria Where Clause
+- Untuk menambahkan where clause di Criteria, bisa gunakan CriteriaQuery.where()
+- Dan untuk menambahkan kondisi AND, OR atau operasi =, !=, dan lain-lain, kita bisa gunakan CriteriaBuilder
+- Secara default, operasi yang tidak kita sebutkan AND atau OR, akan menggunakan AND
+
 ## Run postgre with docker
 ```shell
 docker run --rm --name belajar-java-persistance-api-db \ 
