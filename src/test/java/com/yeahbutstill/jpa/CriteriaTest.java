@@ -11,6 +11,7 @@ import jakarta.persistence.TypedQuery;
 import jakarta.persistence.criteria.*;
 import org.junit.jupiter.api.Test;
 
+import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Stream;
 
@@ -209,6 +210,49 @@ class CriteriaTest {
         List<Product> resultList = query.getResultList();
         for (Product product : resultList) {
             System.out.println(product.getId() + " : " + product.getName());
+        }
+
+        entityTransaction.commit();
+        entityManager.close();
+
+    }
+
+    @Test
+    void testCriteriaAggregateQuery() {
+
+        EntityManagerFactory entityManagerFactory = JpaUtil.getEMF();
+        EntityManager entityManager = entityManagerFactory.createEntityManager();
+        EntityTransaction entityTransaction = entityManager.getTransaction();
+        entityTransaction.begin();
+
+        CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
+        CriteriaQuery<Object[]> criteriaQuery = criteriaBuilder.createQuery(Object[].class);
+        Root<Product> p = criteriaQuery.from(Product.class);
+        Join<Product, Brand> b = p.join("brand");
+
+        criteriaQuery.select(criteriaBuilder.array(
+                b.get("id"),
+                criteriaBuilder.min(p.get("price")),
+                criteriaBuilder.max(p.get("price")),
+                criteriaBuilder.avg(p.get("price"))
+        ));
+        // select b.id, min(p.price), max(p.price), avg(p.price) from Product p join p.brand b
+
+        criteriaQuery.groupBy(b.get("id"));
+        // select b.id, min(p.price), max(p.price), avg(p.price) from Product p join p.brand b group by b.id
+
+        criteriaQuery.having(criteriaBuilder.greaterThan(criteriaBuilder.min(p.get("price")), 500_000L));
+        // select b.id, min(p.price), max(p.price), avg(p.price) from Product p join p.brand b group by b.id having min(p.price) > 500_000
+
+        TypedQuery<Object[]> query = entityManager.createQuery(criteriaQuery);
+        List<Object[]> resultList = query.getResultList();
+
+
+        for (Object[] objects : resultList) {
+            System.out.println("Brand : " + objects[0]);
+            System.out.println("Min Price : " + objects[1]);
+            System.out.println("Max Price : " + objects[2]);
+            System.out.println("Avg Price : " + objects[3]);
         }
 
         entityTransaction.commit();

@@ -307,6 +307,10 @@ PERLU BERHATI-HATI DENGAN FETCH EAGER
 - Sehingga kita bisa ubah nilai paramater nya ketika sudah membuat Query nya
 - Kita bisa gunakan CriteriaBuilder.parameter()
 
+## Criteria Aggregate Query
+- Aggregate Function, Group By dan Having juga bisa didukung di Criteria
+- Aggregate Function terdapat di Criteria Builder
+- Group By dan Having bisa digunakan di Criteria Query
 
 
 ## Run postgre with docker
