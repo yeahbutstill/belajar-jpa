@@ -319,6 +319,11 @@ PERLU BERHATI-HATI DENGAN FETCH EAGER
 - Dan untuk membuat perintah Delete, gunakan CriteriaBuilder.createCriteriaDelete(class)
 - Return nya adalah object CriteriaDelete<T>
 
+## Fitur lainnya
+- JPA :
+  https://jakarta.ee/specifications/persistence/3.1/jakarta-persistence-spec-3.1.html
+- Hibernate ORM :
+  https://docs.jboss.org/hibernate/orm/6.2/userguide/html_single/Hibernate_User_Guide.html
 
 
 ## Run postgre with docker
